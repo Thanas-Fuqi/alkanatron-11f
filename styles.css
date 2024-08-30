@@ -1,0 +1,132 @@
+:root {
+  --rowCount: 10;
+}
+
+footer {
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+}
+
+html {
+  background-color: rgba(203, 208, 208, 0.448);
+  background-image: url(./Alcahol_chem.png);
+  background-blend-mode: lighten;
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+}
+
+body {
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  display: flex;
+
+  font-family: Arial, sans-serif;
+  font-weight: bolder;
+  font-size: large;
+  padding: 0;
+  margin: 0;
+}
+
+button {
+  padding: 10px 20px;
+  margin-right: 10px;
+  cursor: pointer;
+
+  font-size: medium;
+  font-weight: 500;
+  color: #fff;
+
+  border: none;
+  border-radius: 5px;
+
+  transition: background-color 0.3s ease-in;
+  background-color: #007bff;
+}
+
+button:hover {
+  background-color: #004a99
+}
+
+.sliderCounter {
+  flex-direction: row;
+  margin-bottom: 20px;
+}
+
+#memoryGrid {
+  display: grid;
+  grid-template-columns: repeat(var(--rowCount), 30px);
+  grid-template-rows: repeat(var(--rowCount), 30px);
+
+  margin-bottom: 20px;
+  gap: 1px;
+}
+
+#half_formula, #name_Structure {
+  font-family: 'Courier New', Courier, monospace;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  color: #333;
+}
+
+.cell {
+  border: 1px solid #000;
+  position: relative;
+  cursor: pointer;
+
+  width: 30px;
+  height: 30px;
+}
+
+.verticalLine, .horizontalLine {
+  transform: translate(-50%, -50%);
+  background-color: #000;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+}
+
+.verticalLine {
+  height: 100%;
+  width: 5px;
+}
+
+.horizontalLine {
+  height: 5px;
+  width: 100%;
+}
+
+.dot {
+  transform: translate(-50%, -50%);
+  background-color: #000;
+  border-radius: 50%;
+
+  position: absolute;
+  top: 50%;
+  left: 50%;
+
+  width: 17px;
+  height: 17px;
+}
+
+.carbon, .name {
+  display: inline-block;
+}
+
+.met  {background-color: aqua}
+.et   {background-color: blue}
+.prop {background-color: blueviolet}
+.but  {background-color: brown}
+.pent {background-color: chartreuse}
+.hekz {background-color: chocolate}
+.hept {background-color: cornflowerblue}
+.okt  {background-color: crimson}
+.non  {background-color: darkmagenta}
+.dek  {background-color: darkgreen}
+
+.izo  {background: linear-gradient(to bottom, gray 20%, var(--hydrocarbon-color) 100%)} 
+.sek  {background: linear-gradient(to bottom, yellow 20%, var(--hydrocarbon-color) 100%)} 
+.tert {background: linear-gradient(to bottom, deeppink 20%, var(--hydrocarbon-color) 100%)}

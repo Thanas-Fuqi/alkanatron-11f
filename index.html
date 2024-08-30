@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Emertues alkanesh</title>
+  <link rel="apple-touch-icon" sizes="180x180" href="./apple-touch-icon.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="./favicon-32x32.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="./favicon-16x16.png">
+
+  <link rel="manifest" href="./site.webmanifest">
+  <link rel="stylesheet" type="text/css" href="./styles.css">
+  <meta name="google-site-verification" content="9xylTx5zsrr68srdVw3EDcVHTppd0aRJwZx_gSqZ_xE" />
+
+  <script src="./Logic_JS/Grid_Layout.js"></script>
+  <script src="./Logic_JS/Log_HalfStructure.js"></script>
+  <script src="./Logic_JS/Name_Structure.js"></script>
+  <script src="./Logic_JS/prefix_ParentChain.js"></script>
+  <script src="./Logic_JS/prefix_Substituents.js"></script>
+</head>
+
+<body>
+  <h1>Emërtuesi i Alkaneve!</h1>
+
+  <div class="sliderCounter">
+    <input type="range" min="5" max="20" value="10" id="rowSlider" 
+      oninput="document.getElementById('rowCount').textContent = this.value">
+    <label for="rowSlider">Numri i rrjeshtave: <span id="rowCount">10</span></label>
+  </div>
+
+  <div id="memoryGrid"></div>
+
+  <button onClick="Log_content()" id="printStructureBtn">Nxirr gjysmë-strukturën</button>
+  <div id="half_formula"></div>
+  
+  <button onClick="Name_content()" id="printNameBtn">Nxirr emrin e alkanit</button>
+  <div id="name_Structure"></div>
+
+  <footer>&copy; 2024 Nasiol</footer>
+</body>
+
+</html>
