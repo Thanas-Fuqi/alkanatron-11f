@@ -1,5 +1,4 @@
 ﻿# Project Chemistry 
-// Visit the `NEW Server`: [**Alkanatron**](https://alkanatron-11f.rf.gd/)
 
 ## Overview
 
