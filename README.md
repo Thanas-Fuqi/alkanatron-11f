@@ -41,4 +41,4 @@ The algorithm behind **Alkanatron** is designed to mimic the logical process a p
 
 ## Usage
 
-Visit the website: [Alkanatron](https://www.alkanatron-11f.rf.gd/) to start solving and verifying alkane naming exercises.
+Visit the website: [Alkanatron](https://thanas-fuqi.github.io/alkanatron-11f/?i=1) to start solving and verifying alkane naming exercises.
