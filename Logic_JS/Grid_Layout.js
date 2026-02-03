@@ -1,19 +1,17 @@
 const contentTypes = ['none', 'dot', 'horizontalLine', 'verticalLine'];
-var rowCount = 10; // Variable for saving the row/column grid count
+var rowCount = 10;
+let activeCell = null; // Track which cell is currently being edited
 
-// As soon as the page is created
 document.addEventListener('DOMContentLoaded', () => {
   const memoryGrid = document.getElementById('memoryGrid');
-  //const rowCountLabel = document.getElementById("rowCount");
   const rowSlider = document.getElementById("rowSlider");
+  const menu = document.getElementById('selection-menu');
 
   rowSlider.addEventListener("input", function() {
     rowCount = parseInt(this.value);
-
-    // Update CSS variable value
     document.documentElement.style.setProperty('--rowCount', rowCount);
 
-    while (memoryGrid.firstChild) { // Clear section
+    while (memoryGrid.firstChild) {
       memoryGrid.removeChild(memoryGrid.firstChild);
     }
 
@@ -21,41 +19,72 @@ document.addEventListener('DOMContentLoaded', () => {
       const cell = document.createElement('div');
       cell.classList.add('cell');
       cell.dataset.type = 'none';
-      cell.onclick = function() {
-        toggleContent(this);
-      }; // Add Cell to the grid
+      cell.onclick = function(e) {
+        showMenu(e, this);
+      };
       memoryGrid.appendChild(cell);
     }
   });
 
-  // Initialize grid with default row count
   rowSlider.dispatchEvent(new Event('input'));
+
+  // Hide menu if clicking outside
+  document.addEventListener('click', (e) => {
+    if (!e.target.closest('.cell') && !e.target.closest('#selection-menu')) {
+      menu.style.display = 'none';
+    }
+  });
 });
 
+function showMenu(event, cell) {
+  activeCell = cell;
+  const menu = document.getElementById('selection-menu');
+  
+  // 1. Show to calculate dimensions
+  menu.style.display = 'flex';
+  menu.style.visibility = 'hidden'; 
 
-function toggleContent(cell) { // Change the state when clciked
-  let currentIndex = contentTypes.indexOf(cell.dataset.type);
-  let newIndex = (currentIndex + 1) % contentTypes.length;
+  const menuWidth = menu.offsetWidth;
+  const screenWidth = window.innerWidth;
+  
+  // 2. Get Cell Position
+  // This finds the exact coordinates of the cell on the screen
+  const cellRect = cell.getBoundingClientRect();
+  const cellCenterX = cellRect.left + window.scrollX + (cellRect.width / 2);
+  const cellTopY = cellRect.top + window.scrollY;
 
-  // Remove every previus child from the cell in html
-  while (cell.firstChild) cell.removeChild(cell.firstChild);
-        
-  // Create the new child with a div
-  const new_div = document.createElement('div');
-  let newContentType = contentTypes[newIndex];
+  // 3. Calculate Snap Position (Centered above cell)
+  let leftPos = cellCenterX - (menuWidth / 2);
+  let topPos = cellTopY - 60; // Fixed distance above the cell
 
-  // Change the classType if verticalLine
-  if (newContentType === contentTypes[3]) {
-    new_div.classList.add(contentTypes[3]);
-  } else if ( // --||-- if horizontal
-    newContentType === contentTypes[2]) {
-    new_div.classList.add(contentTypes[2]);
-  } else if ( // --||-- if dot
-    newContentType === contentTypes[1]) {
-    new_div.classList.add(contentTypes[1]);
-  } 
-      
-  // Add the child to div
-  cell.appendChild(new_div);
-  cell.dataset.type = contentTypes[newIndex];
+  // 4. Smart Constraints (Prevent off-screen bleed)
+  const padding = 10;
+  if (leftPos < padding) { leftPos = padding;
+  } else if (leftPos + menuWidth > screenWidth - padding) {
+    leftPos = screenWidth - menuWidth - padding;
+  }
+
+  // 5. Apply
+  menu.style.left = `${leftPos}px`;
+  menu.style.top = `${topPos}px`;
+  menu.style.visibility = 'visible';
+}
+
+function selectType(typeIndex) {
+  if (!activeCell) return;
+
+  const newContentType = contentTypes[typeIndex];
+  
+  // Clear cell
+  while (activeCell.firstChild) activeCell.removeChild(activeCell.firstChild);
+  
+  // Create the visual element inside the cell
+  if (newContentType !== 'none') {
+    const new_div = document.createElement('div');
+    new_div.classList.add(newContentType);
+    activeCell.appendChild(new_div);
+  }
+
+  activeCell.dataset.type = newContentType;
+  document.getElementById('selection-menu').style.display = 'none';
 }
